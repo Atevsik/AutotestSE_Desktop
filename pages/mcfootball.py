@@ -1,3 +1,4 @@
+from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
@@ -8,6 +9,7 @@ class McFootball:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/live/')
+        sleep(6)
 
     def football_mc(self):
         football_mc = self.browser.find_element(By.XPATH, "(//a[@class='se-matchcenter-sports-list__row'])[1]")

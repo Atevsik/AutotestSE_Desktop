@@ -9,6 +9,7 @@ class OnlinePage:
 
     def open_online(self):
         self.browser.get('https://www.sport-express.ru/online/')
+        sleep(6)
 
     def h1_news_online(self):
         h1_news_online = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')

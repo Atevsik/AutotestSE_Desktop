@@ -12,6 +12,7 @@ class Zarplati:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/video/den-s-alekseem-shevchenko/materials/')
+        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
@@ -32,6 +33,7 @@ class Zarplati:
     def zp(self):
         zp = self.browser.find_element(By.XPATH,"//a[@class='se-burger-menu__link'][contains(text(),'Зарплаты КХЛ')]")
         self.browser.get('https://www.sport-express.ru/hockey/khl/money/2024-2025/')
+        sleep(6)
         assert self.browser.current_url == 'https://www.sport-express.ru/hockey/khl/money/2024-2025/', "Не правлиьный урл"
 
     def h2(self):

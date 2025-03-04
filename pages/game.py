@@ -12,6 +12,7 @@ class Game:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/games/')
+        sleep(6)
         sleep(3)
 
     def h1(self):

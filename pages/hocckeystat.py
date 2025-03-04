@@ -12,6 +12,7 @@ class HocckeyStat:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/hockey/world/')
+        sleep(6)
 
     def menu_nad_logo(self):
         menu_nad_logo = self.browser.find_element(By.XPATH,"//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")
@@ -43,6 +44,7 @@ class HocckeyStat:
     def stat(self):
         stat = self.browser.find_element(By.XPATH,"//a[contains(text(),'Статистика')]")
         self.browser.get('https://www.sport-express.ru/hockey/L/world/2024/statistic/')
+        sleep(6)
         assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/world/2024/statistic/', "Не правильная статистика"
 
     def h1(self):

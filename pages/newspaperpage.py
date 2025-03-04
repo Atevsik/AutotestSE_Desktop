@@ -12,6 +12,7 @@ class PaperGazeta:
 
     def open_gazeta(self):
         self.browser.get('https://www.sport-express.ru/newspaper/')
+        sleep(6)
 
     def calendar_gazet(self):
         calendar_gazet = self.browser.find_element(By.XPATH, '//span[@id="calendar_icon"]')

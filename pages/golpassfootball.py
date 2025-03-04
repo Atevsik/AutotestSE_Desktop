@@ -12,6 +12,7 @@ class FootbalGolPas:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/statistics/goalpass/')
+        sleep(6)
 
     def top3(self,count):
         top3 = self.browser.find_elements(By.XPATH,"//div[@class='se19-players-statistics__player se19-player-statistics']")
@@ -22,6 +23,7 @@ class FootbalGolPas:
 
     def asist(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/statistics/cards/')
+        sleep(6)
 
     def proverka1(self):
         proverka1 = self.browser.find_element(By.XPATH,"//a[contains(text(),'Андрей Егорычев')]")

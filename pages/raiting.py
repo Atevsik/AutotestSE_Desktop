@@ -11,6 +11,7 @@ class Raiting:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/rating-bookmakerov/news/reyting-bukmekerov-1989757/')
+        sleep(6)
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//h1[contains(text(),'Рейтинг букмекеров')]")

@@ -11,6 +11,7 @@ class VideoPage:
 
     def open_video(self):
         self.browser.get('https://www.sport-express.ru/videoreports/')
+        sleep(6)
 
     def h1_news_video(self):
         h1_news_video = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Видео")]')

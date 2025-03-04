@@ -9,6 +9,7 @@ class StoryPage:
 
     def open_story(self):
         self.browser.get('https://www.sport-express.ru/stories/')
+        sleep(6)
 
     def h1_news_story(self):
         h1_news_story = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')

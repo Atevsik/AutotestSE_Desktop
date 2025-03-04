@@ -10,6 +10,7 @@ class PageBoets:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tag/hoakin-bakli-25917/')
+        sleep(6)
 
     def info(self):
         info = self.browser.find_element(By.XPATH,"//div[@class='sp-profile-frame-main']")

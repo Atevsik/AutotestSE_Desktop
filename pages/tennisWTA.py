@@ -12,6 +12,7 @@ class TennisWTA:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tennis/wta/')
+        sleep(6)
 
     def reviews(self):
         reviews = self.browser.find_element(By.XPATH,"//div[contains(text(),'Статьи')]")

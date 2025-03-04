@@ -11,6 +11,7 @@ class CalendarGame:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2024-2025/calendar/tours/')
+        sleep(6)
 
     def main_book(self):
         main_book = self.browser.find_element(By.XPATH,"//div[@class='se19-main-content__extra']")

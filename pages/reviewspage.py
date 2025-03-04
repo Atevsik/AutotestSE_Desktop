@@ -1,3 +1,4 @@
+from time import sleep
 from selenium.webdriver.common.by import By
 
 
@@ -8,6 +9,7 @@ class ReviewsPage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/reviews/')
+        sleep(6)
 
     def h1_rev(self):
         h1_news = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')

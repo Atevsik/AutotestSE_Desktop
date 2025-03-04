@@ -1,3 +1,4 @@
+from time import sleep
 from selenium.webdriver.common.by import By
 
 class NewsPage:
@@ -8,6 +9,7 @@ class NewsPage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/news/')
+        sleep(6)
 
     def logo_news(self):
         logo_news = self.browser.find_element(By.XPATH, '//div[@class="se-logo"]')
