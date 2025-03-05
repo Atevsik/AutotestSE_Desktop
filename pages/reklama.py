@@ -11,7 +11,6 @@ class Reklama:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/advert/www/')
-        sleep(6)
 
     def everest(self):
         everest = self.browser.find_element(By.XPATH,"(//h2[@class='redline pt_10 fs_21'])[1]")

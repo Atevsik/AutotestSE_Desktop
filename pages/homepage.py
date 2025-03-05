@@ -8,7 +8,6 @@ class HomePage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/')
-        sleep(6)
 
     def tablo_find(self):
         tablo_find = self.browser.find_element(By.CSS_SELECTOR, '.se-translation-scoreboard__events')

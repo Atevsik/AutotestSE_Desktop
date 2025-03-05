@@ -9,7 +9,6 @@ class DetalPoll:
 
     def open_detal_poll(self):
         self.browser.get('https://www.sport-express.ru/hockey/nhl/poll/kakoy-klub-nhl-s-dvumya-i-bolee-rossiyanami-v-sostave-vam-naibolee-interesen-2188058/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
@@ -28,7 +27,6 @@ class DetalPoll:
     def comands(self):
         comands = self.browser.find_element(By.XPATH,"(//a[contains(text(),'Команды')])[1]")
         self.browser.get('https://www.sport-express.ru/hockey/L/nhl/2024-2025/teams/')
-        sleep(6)
         assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/nhl/2024-2025/teams/', "Не правильнвый урл команд"
 
     def h1(self):

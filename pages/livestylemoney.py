@@ -13,7 +13,6 @@ class LifeStyMoney:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/zozh/life/')
-        sleep(6)
 
     def img(self):
         img = self.browser.find_element(By.XPATH, "//div[@class='se-brandedbuttons__item']//img")

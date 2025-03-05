@@ -10,7 +10,6 @@ class MMAmc:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/live/mma/ufc/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

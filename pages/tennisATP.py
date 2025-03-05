@@ -13,7 +13,6 @@ class TennisAtp:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tennis/atp/')
-        sleep(6)
 
     def news(self):
         news = self.browser.find_element(By.XPATH,"//div[@class='se-newsline']//section[@class='se-titled-block']")

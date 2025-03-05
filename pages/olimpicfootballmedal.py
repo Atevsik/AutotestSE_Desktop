@@ -10,7 +10,6 @@ class FootballMedal:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/olympics/summer/badminton/2016/medals/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

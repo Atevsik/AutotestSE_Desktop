@@ -10,7 +10,6 @@ class PageFight:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/live/mma/ufc/event-14640/')
-        sleep(6)
 
     def spisok_knopok(self):
         spisok_knopok = self.browser.find_element(By.XPATH, "//div[@class='sp-matchcenter-event-page__buttons']")

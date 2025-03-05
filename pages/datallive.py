@@ -9,7 +9,6 @@ class DetalLive:
 
     def open_detal_live(self):
         self.browser.get('https://www.sport-express.ru/football/rfpl/online/spartak-fakel-smotret-besplatno-match-20-tura-rpl-v-pryamom-efire-onlayn-tekstovaya-translyaciya-i-rezultat-10-marta-2024-2187914/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

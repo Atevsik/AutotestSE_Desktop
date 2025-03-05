@@ -12,7 +12,6 @@ class CalendarNhl:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/hockey/nhl/')
-        sleep(6)
 
     def tablo(self):
         tablo = self.browser.find_element(By.XPATH,"//div[@class='se-translation-scoreboard__events']")

@@ -11,7 +11,6 @@ class Podpiska:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/company/subscribe/')
-        sleep(6)
 
     def h3(self):
         h3 = self.browser.find_element(By.XPATH,"//h3[contains(text(),'ПОДПИШИТЕСЬ НА ВЕЧЕРНИЙ СПОРТ-ЭКСПРЕСС')]")

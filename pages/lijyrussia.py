@@ -12,7 +12,6 @@ class LijiRussia:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/skiing/chempionat-rossii/')
-        sleep(6)
 
     def menu_nad_logo(self):
         menu_nad_logo = self.browser.find_element(By.XPATH, "//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")

@@ -11,7 +11,6 @@ class Stavki:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/stavki-na-sport/')
-        sleep(6)
 
     def mosaik(self):
         self.browser.find_element(By.XPATH,"//div[@class='se-materials-grid-mosaic']")

@@ -9,7 +9,6 @@ class McFootball:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/live/')
-        sleep(6)
 
     def football_mc(self):
         football_mc = self.browser.find_element(By.XPATH, "(//a[@class='se-matchcenter-sports-list__row'])[1]")

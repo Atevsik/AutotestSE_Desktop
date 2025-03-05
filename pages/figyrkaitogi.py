@@ -12,7 +12,6 @@ class FigurkaItogi:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/live/figure-skating/chempionat-rossii/event-16113/')
-        sleep(6)
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//div[@class='sp-sport-page__title']")

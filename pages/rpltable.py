@@ -12,7 +12,6 @@ class RplTable:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/')
-        sleep(6)
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//h1[contains(text(),'Россия. Премьер-лига 2023-2024, турнирные таблицы')]")
@@ -37,7 +36,6 @@ class RplTable:
 
     def select(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/calendar/tours/')
-        sleep(6)
 
     def h2(self):
         h2 = self.browser.find_element(By.XPATH,"//h1[contains(text(),'Россия. Премьер-лига 2023-2024, расписание матчей,')]")

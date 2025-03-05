@@ -12,7 +12,6 @@ class FormylaPailot:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/autosport/formula1/teams/?season=2024')
-        sleep(6)
 
     def text(self):
         text = self.browser.find_element(By.XPATH,"//span[contains(text(),'Команды')]")

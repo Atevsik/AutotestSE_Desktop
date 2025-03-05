@@ -12,7 +12,6 @@ class TennisBig:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tennis/grand-slam/')
-        sleep(6)
 
     def reviews(self):
         reviews = self.browser.find_element(By.XPATH,"//div[contains(text(),'Статьи')]")

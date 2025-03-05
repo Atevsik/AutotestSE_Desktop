@@ -11,7 +11,6 @@ class Rss:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/company/rss/')
-        sleep(6)
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"(//h1[@class='se19-staticpage-h1'])[1]")

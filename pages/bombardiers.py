@@ -10,7 +10,6 @@ class Bombardiers:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/first/2023-2024/statistics/bombardiers/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

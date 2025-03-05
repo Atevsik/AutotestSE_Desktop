@@ -9,7 +9,6 @@ class DetalStory:
 
     def open_detal_story(self):
         self.browser.get('https://www.sport-express.ru/football/rus_cup/stories/kubok-rossii-pley-off-puti-rpl-i-regionov-1-4-finala-1-2-i-final-zherebevka-pary-i-rezultaty-matchey-2023-2024-2140252/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

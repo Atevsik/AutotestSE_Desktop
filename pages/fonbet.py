@@ -12,7 +12,6 @@ class Fonbet:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/hockey/khl/')
-        sleep(6)
         sleep(3)
 
     def tablo(self):

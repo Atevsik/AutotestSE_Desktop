@@ -9,7 +9,6 @@ class DetalNews:
 
     def open_detal_news(self):
         self.browser.get('https://www.sport-express.ru/football/rfpl/news/eks-prezident-lokomotiva-naumov-ocenil-igru-dzyuby-i-suleymanova-2188563/')
-        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
