@@ -30,9 +30,6 @@ class FootballOlimp:
         proverka_tag = self.browser.find_element(By.XPATH,"//p[@class='se-material-page__rubric']//a[contains(text(),'Рио-2016')]")
         self.browser.back()
 
-    def bloki2(self):
-        bloki2 = self.browser.find_element(By.XPATH,"//div[@class='se-olympic-navigation__menu']")
-
     def switch(self):
         switch = self.browser.find_element(By.XPATH,"//div[@class='se-olympic-navigation__switcher-item']")
         switch.click()

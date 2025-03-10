@@ -38,9 +38,10 @@ class MmaRaiting:
     def prom(self):
         prom = self.browser.find_element(By.XPATH,"//div[@class='se-sport-navigator__competition']")
         prom.click()
+        sleep(3)
 
     def prom1(self):
-        prom1 = self.browser.find_element(By.XPATH,"//div[@id='react-select-competitions-option-0-4']")
+        prom1 = self.browser.find_element(By.CSS_SELECTOR,"#react-select-competitions-option-0-4")
         prom1.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/fighting/mma/aca/2025/calendar/', "Не правильный урл АСА"
 

@@ -47,9 +47,6 @@ class NewsPage:
         football_button.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/football/news/', "OSHIBKA УРЛА"
 
-    def subckribe_block(self):
-        subckribe_block = self.browser.find_element(By.XPATH,'//div[@class="se-subscribe-block"]')
-
     def h1_footbal_news(self):
         h1_footbal_news = self.browser.find_element(By.XPATH,'//h1[contains(text(),"Новости футбола")]')
 

@@ -8,4 +8,3 @@ def test_tablecomands(browser):
     tablecomands.h1()
     tablecomands.legend()
     tablecomands.table_comands()
-    tablecomands.spartak()

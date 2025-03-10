@@ -24,13 +24,6 @@ class TagComand:
     def material(self):
         material = self.browser.find_element(By.XPATH,"//div[@class='se-page-filters se-page-filters--size-sm se-tag-profile-materials-filter']")
 
-    def knopka(self):
-        knopka = self.browser.find_element(By.XPATH,"//div[@class='se-button se-button--size-big']")
-        knopka.click()
-        sleep(2)
-        knopka = self.browser.execute_script("arguments[0].scrollIntoView();", knopka)
-
-
     def sostav(self):
         sostav = self.browser.find_element(By.XPATH,"//a[contains(text(),'Состав')]")
         sostav.click()
@@ -41,10 +34,11 @@ class TagComand:
         assert len(igroki) == count
 
     def click_igrok(self):
-        click_igrok = self.browser.find_element(By.XPATH,"//body[1]/div[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[4]/a[1]")
+        click_igrok = self.browser.find_element(By.XPATH,"//img[@title='Смолин Александр']")
         click_igrok.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/10621/', "Не правильный урл тега"
+        assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/16375/', "Не правильный урл тега"
         self.browser.back()
+        sleep(4)
 
     def raspisanie(self):
         raspisanie = self.browser.find_element(By.XPATH,"//a[contains(text(),'Расписание')]")

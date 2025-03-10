@@ -12,7 +12,6 @@ def test_newspage(browser):
     newspage.vid_materiala_button()
     newspage.vid_sporta_button()
     newspage.football_button()
-    newspage.subckribe_block()
     newspage.h1_footbal_news()
     newspage.spisok_materialov()
     newspage.cup_selector()

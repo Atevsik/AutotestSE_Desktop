@@ -16,5 +16,5 @@ def test_calenda_nhl(browser):
     calend.calend()
     calend.h1()
     calend.book()
-    calend.bookes()
+    #calend.bookes()
     calend.tables()

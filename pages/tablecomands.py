@@ -22,7 +22,7 @@ class TableComands:
         table_comands = self.browser.find_element(By.XPATH,"//div[@class='tournir_table strong_border']")
 
     def spartak(self):
-        spartak = self.browser.find_element(By.XPATH,"(//a[contains(text(),'Спартак')])[2]")
+        spartak = self.browser.find_element(By.XPATH,"((//img[@alt='Спартак'])[2]")
         spartak.click()
         sleep(5)
         assert self.browser.current_url == 'https://www.sport-express.ru/football/L/command/1/', "Не правильный урл спартака"

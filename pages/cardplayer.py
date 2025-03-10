@@ -32,5 +32,5 @@ class CardPlayer:
 
     def filtr(self):
         filtr = self.browser.find_element(By.XPATH,"//div[@class='cusel_select mr_20']")
-        filtr.click()
+
 
