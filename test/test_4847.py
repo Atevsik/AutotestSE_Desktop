@@ -13,4 +13,3 @@ def test_football_mel1(browser):
     mel1.block()
     mel1.foltri()
     mel1.reklama()
-    mel1.podpiska1()

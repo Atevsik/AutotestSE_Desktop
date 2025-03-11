@@ -18,11 +18,11 @@ class MMAcalend:
         h1 = self.browser.find_element(By.XPATH,"//div[@class='sp-sport-page__title']")
 
     def filtr1(self):
-        filtr1 = self.browser.find_element(By.XPATH,"//div[@class='se-sport-navigator__competition']")
+        filtr1 = self.browser.find_element(By.CSS_SELECTOR,".se-sport-navigator__competition")
         filtr1.click()
 
     def aca(self):
-        aca = self.browser.find_element(By.XPATH,"//div[@id='react-select-competitions-option-0-4']")
+        aca = self.browser.find_element(By.CSS_SELECTOR,"#react-select-competitions-option-0-4")
         aca.click()
         sleep(3)
         assert self.browser.current_url == 'https://www.sport-express.ru/fighting/mma/aca/2025/calendar/', "Не правильная аса"

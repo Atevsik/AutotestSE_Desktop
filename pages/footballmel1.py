@@ -26,8 +26,6 @@ class FootballMel1:
     def reklama(self):
         reklama = self.browser.find_element(By.XPATH,"//div[@id='adfox_15645683733586888']")
 
-    def podpiska1(self):
-        podpiska1 = self.browser.find_element(By.XPATH,"//input[@name='bt_save']")
 
 
 
