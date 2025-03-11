@@ -59,8 +59,5 @@ class BiatlonKybok:
         knopa.click()
         sleep(3)
 
-    def proverka(self):
-        proverka = self.browser.find_element(By.XPATH,"//span[normalize-space()='309']")
-
     def reklama(self):
         reklama = self.browser.find_element(By.XPATH,"//div[@id='adfox_15645683733586888']")

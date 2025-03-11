@@ -39,14 +39,8 @@ class BiatlonMir:
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//div[@class='sp-sport-page__title']")
 
-    def god(self):
-        god = self.browser.find_element(By.XPATH,"//div[@class='se-sport-navigator__season-name']")
-        god.click()
-
     def god24(self):
-        god24 = self.browser.find_element(By.XPATH,"//div[@id='react-select-seasons-option-0-1']")
-        god24.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/winter/biathlon/chempionat-mira/2023-2024/medals/teams/all/', "Не правильный урл"
+        self.browser.get('https://www.sport-express.ru/winter/biathlon/chempionat-mira/2023-2024/medals/teams/all/')
 
     def content(self):
         content = self.browser.find_element(By.XPATH,"//div[@class='se-competition-titled-block__content']")

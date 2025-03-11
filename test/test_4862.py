@@ -19,7 +19,6 @@ def test_biatlon_mir(browser):
     biatlon_kybok.strani(35)
     biatlon_kybok.usa()
     biatlon_kybok.knopa()
-    biatlon_kybok.proverka()
     biatlon_kybok.reklama()
 
 

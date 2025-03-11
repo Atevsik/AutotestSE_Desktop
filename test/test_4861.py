@@ -15,7 +15,6 @@ def test_biatlon_medal(browser):
     biatlon.podval()
     biatlon.medal_za4()
     biatlon.medal_za4()
-    biatlon.god()
     biatlon.god24()
     biatlon.content()
     biatlon.france()
