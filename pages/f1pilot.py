@@ -39,21 +39,21 @@ class FormylaPailot:
     def pilot(self):
         pilot = self.browser.find_element(By.XPATH,"//a[contains(text(),'Пилоты')]")
         pilot.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/drivers/?season=2024', "Не правильный пилот"
+        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/drivers/', "Не правильный пилот"
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//span[contains(text(),'Пилоты')]")
 
     def bottas(self):
-        bottas = self.browser.find_element(By.XPATH,"//a[contains(text(),'Валттери Боттас')]")
+        bottas = self.browser.find_element(By.XPATH,"//a[contains(text(),'Оливер Берман')]")
         bottas.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/drivers/bottas-valtteri-578/', "Не правильный боттас"
+        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/drivers/berman-oliver-793/', "Не правильный боттас"
         self.browser.back()
 
     def mers(self):
-        mers = self.browser.find_element(By.XPATH,"//div[15]//div[4]//div[1]//div[1]//a[1]//p[1]")
+        mers = self.browser.find_element(By.XPATH,"//div[18]//div[4]//div[1]//div[1]//a[1]//p[1]")
         mers.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/teams/mercedes-49/?season=2024', "Не правильный мерс"
+        assert self.browser.current_url == 'https://www.sport-express.ru/autosport/formula1/teams/ferrari-19/?season=2025', "Не правильный мерс"
 
 
 

@@ -1,7 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from pages.lifestyle import LifeStyle
-from pages.texnofootball import TexnoFootball
 
 
 def test_lifestyle(browser):

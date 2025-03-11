@@ -64,7 +64,7 @@ class LifeStyFilm:
         podval = self.browser.find_element(By.XPATH, "//div[@class='se-center-wrapper']")
 
     def film(self):
-        film = self.browser.find_element(By.XPATH,"/html/body/div[1]/section/div[2]/div[1]/div/div/div[2]/div/div/div[2]/a")
+        film = self.browser.find_element(By.XPATH,"//div[@class='ls-mainpage__rubrics ls-mainpage__rubrics--top']//div//a[@class='ls-rubric-menu-item ls-rubric-menu-item--sub'][contains(text(),'Фильмы')]")
         film.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/tag/kino-9843/', "Не правильный фильм"
 
