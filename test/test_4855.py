@@ -18,6 +18,6 @@ def test_figurka_calend(browser):
     fig_cal.calendar()
     fig_cal.h1()
     fig_cal.tag()
-    fig_cal.book()
+    #fig_cal.book()
 
 

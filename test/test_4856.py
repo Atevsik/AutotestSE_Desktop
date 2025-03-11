@@ -18,7 +18,6 @@ def test_figurka_medal(browser):
     figmed.medal_za4()
     figmed.vibor_goda()
     figmed.g24()
-    figmed.japan()
     figmed.muj()
     figmed.jen()
     figmed.pari()

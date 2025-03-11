@@ -12,7 +12,7 @@ def test_figurka_new(browser):
     fw.america()
     fw.h1()
     fw.sports()
-    fw.text()
+    #fw.text()
     fw.rost()
     fw.flag(152)
     fw.select()

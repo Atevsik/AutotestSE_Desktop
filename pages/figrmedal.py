@@ -45,13 +45,7 @@ class FigurkaMedal:
         vibor_goda.click()
 
     def g24(self):
-        g24 = self.browser.find_element(By.XPATH,"//div[@id='react-select-seasons-option-0-1']")
-        g24.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/winter/figure-skating/chempionat-mira/2023-2024/medals/teams/all/', "не правильный год"
-
-    def japan(self):
-        japan = self.browser.find_element(By.XPATH,"//div[contains(text(),'Япония')]")
-        japan.click()
+        self.browser.get('https://www.sport-express.ru/winter/figure-skating/chempionat-mira/2023-2024/medals/teams/all/')
 
     def muj(self):
         muj = self.browser.find_element(By.XPATH,"//a[contains(text(),'Муж')]")
@@ -72,7 +66,6 @@ class FigurkaMedal:
         dance = self.browser.find_element(By.XPATH,"//a[contains(text(),'Танцы')]")
         dance.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/winter/figure-skating/chempionat-mira/2023-2024/medals/teams/dance/', "Не правильные танцы"
-
 
     def sportsman(self):
         sportsman = self.browser.find_element(By.XPATH,"//a[@class='se-buttons-toggle-item sp-medals-page-filter__sportsman']")

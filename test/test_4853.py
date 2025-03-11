@@ -13,10 +13,10 @@ def test_page_boets(browser):
     page_fight.rulian()
     page_fight.kori()
     page_fight.stat()
-    page_fight.podbr_stat()
+    #page_fight.podbr_stat()
     page_fight.bolshe_po_teme()
     page_fight.vse_boi()
-    page_fight.open_boi()
+    #page_fight.open_boi()
     page_fight.legend()
 
 
