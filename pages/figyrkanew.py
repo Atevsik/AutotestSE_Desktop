@@ -12,6 +12,7 @@ class FigurkaNew:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/winter/figure-skating/grand-pri/2022-2023/calendar/')
+        sleep(6)
 
     def filtrs(self):
         filtrs = self.browser.find_element(By.XPATH,"//div[@class='se-page-filters']")

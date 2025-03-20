@@ -11,6 +11,7 @@ class Taglayer:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tag/krishtianu-ronaldu-973/')
+        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, "//div[@class='se-menu-subtop se-menu-subtop--main']")

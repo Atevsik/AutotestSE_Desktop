@@ -8,6 +8,7 @@ class DetalReviews:
 
     def open_detal_reviews(self):
         self.browser.get('https://www.sport-express.ru/football/rfpl/reviews/lokomotiv-sygral-vnichyu-s-sochi-mnenie-byvshego-prezidenta-zheleznodorozhnikov-nikolaya-naumova-o-matche-2188444/')
+        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

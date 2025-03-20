@@ -9,6 +9,7 @@ class PollPage:
 
     def open_poll(self):
         self.browser.get('https://www.sport-express.ru/poll/')
+        sleep(6)
 
     def h1_news_poll(self):
         h1_news_poll = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')
