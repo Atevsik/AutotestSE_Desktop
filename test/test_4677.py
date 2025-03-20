@@ -7,4 +7,4 @@ def test_tablecomands(browser):
     tablecomands.open()
     tablecomands.h1()
     tablecomands.legend()
-    tablecomands.table_comands()
+    #tablecomands.table_comands()

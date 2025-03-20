@@ -10,6 +10,7 @@ class Trener:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/hockey/L/khl/2023-2024/trainers/')
+        sleep(5)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
@@ -19,6 +20,11 @@ class Trener:
         nikitin.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/trainer/101/', "Не правильный урл никита"
         self.browser.back()
+
+    def srloll(self):
+        scrlol = self.browser.find_element(By.XPATH,"//div[contains(text(),'Плей-офф')]")
+        scrlol =  self.browser.execute_script("arguments[0].scrollIntoView();", scrlol)
+        sleep(3)
 
     def knoka(self):
         knopka = self.browser.find_element(By.XPATH,"//div[@class='se-button']")

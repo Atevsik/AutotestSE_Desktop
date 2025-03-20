@@ -7,6 +7,7 @@ def test_treners(browser):
     treners.open()
     treners.menu_nadlogo()
     treners.nikitin()
+    treners.srloll()
     treners.knoka()
     treners.spisok(339)
     treners.knoka()
