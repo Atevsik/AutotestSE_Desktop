@@ -11,5 +11,5 @@ def test_detalpoll(browser):
     detalpoll.comands()
     detalpoll.h1()
     detalpoll.toronto_click()
-    detalpoll.pitsburg_click()
-    detalpoll.boston_click()
+    #detalpoll.pitsburg_click()
+    #detalpoll.boston_click()

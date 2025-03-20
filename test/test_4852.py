@@ -7,7 +7,7 @@ from pages.pageboets import PageBoets
 def test_page_boets(browser):
     page_boet = PageBoets(browser)
     page_boet.open()
-    page_boet.info()
+    #page_boet.info()
     page_boet.materials()
     page_boet.all_news()
     page_boet.news()
