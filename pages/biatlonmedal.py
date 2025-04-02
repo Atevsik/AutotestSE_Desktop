@@ -12,6 +12,7 @@ class BiatlonMir:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/biathlon/chempionat-mira/')
+        sleep(6)
 
     def menu_nad_logo(self):
         menu_nad_logo = self.browser.find_element(By.XPATH, "//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")
@@ -41,6 +42,7 @@ class BiatlonMir:
 
     def god24(self):
         self.browser.get('https://www.sport-express.ru/winter/biathlon/chempionat-mira/2023-2024/medals/teams/all/')
+        sleep(6)
 
     def content(self):
         content = self.browser.find_element(By.XPATH,"//div[@class='se-competition-titled-block__content']")

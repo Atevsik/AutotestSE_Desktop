@@ -12,6 +12,7 @@ class TrenerKhl:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/hockey/L/khl/2023-2024/trainers/')
+        sleep(6)
 
     def menu_nad_logo(self):
         menu_nad_logo = self.browser.find_element(By.XPATH,"//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")

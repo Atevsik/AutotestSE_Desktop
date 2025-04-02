@@ -9,6 +9,7 @@ class PhotoPage:
 
     def open_photo(self):
         self.browser.get('https://www.sport-express.ru/photoreports/')
+        sleep(6)
 
     def h1_news_photo(self):
         h1_news_photo = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')

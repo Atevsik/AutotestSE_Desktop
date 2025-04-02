@@ -12,6 +12,7 @@ class BasketEuro:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/basketball/euroleague/')
+        sleep(6)
 
     def menu_nadlogo(self):
         menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')

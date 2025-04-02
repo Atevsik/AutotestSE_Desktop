@@ -12,6 +12,7 @@ class RplStat:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/statistics/bombardiers/')
+        sleep(6)
 
     def top3(self,count):
         top3 = self.browser.find_elements(By.XPATH,"//div[@class='se19-players-statistics__player se19-player-statistics']")
@@ -40,4 +41,5 @@ class RplStat:
 
     def asist(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/statistics/assistances/')
+        sleep(6)
 

@@ -10,6 +10,7 @@ class FigurkaMedal:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/figure-skating/chempionat-mira/')
+        sleep(6)
 
     def menu_nad_logo(self):
         menu_nad_logo = self.browser.find_element(By.XPATH,"//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")
@@ -46,6 +47,7 @@ class FigurkaMedal:
 
     def g24(self):
         self.browser.get('https://www.sport-express.ru/winter/figure-skating/chempionat-mira/2023-2024/medals/teams/all/')
+        sleep(6)
 
     def muj(self):
         muj = self.browser.find_element(By.XPATH,"//a[contains(text(),'Муж')]")

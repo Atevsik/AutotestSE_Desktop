@@ -11,6 +11,7 @@ class Contakt:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/company/contacts/')
+        sleep(6)
 
     def h1(self):
         h1 = self.browser.find_element(By.XPATH,"//h1[contains(text(),'Контактная информация')]")
