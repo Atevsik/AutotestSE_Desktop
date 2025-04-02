@@ -1,14 +1,40 @@
+import logging
+
 from selenium.webdriver.common.by import By
 from pages.reviewspage import ReviewsPage
 
 def test_reviewspage(browser):
     reviewspage = ReviewsPage(browser)
     reviewspage.open()
-    reviewspage.h1_rev()
-    reviewspage.button_glvn_rev(3)
-    reviewspage.button_glvn_click_rev()
-    reviewspage.button_readers_rev()
-    reviewspage.button_exclusive_rev()
-    reviewspage.vid_materiala_button_rev()
-    reviewspage.vid_sporta_button_rev()
-    reviewspage.hockey_button()
+
+    h1 = reviewspage.h1_rev()
+    assert h1 is not None, "Заголовок не найден"
+    logging.info("Заголовок ОК")
+
+    button1 = reviewspage.button_main()
+    assert button1 is not None, "Кнопка Главная не найдена"
+    logging.info("Кнопка ОК ")
+
+    button2 = reviewspage.button_readers()
+    assert button2 is not None, "Кнопка Читатели не найдена"
+    logging.info("Кнопка ОК ")
+
+    button3 = reviewspage.button_exclusive()
+    assert button3 is not None, "Кнопка Эксклюзив не найдена"
+    logging.info("Кнопка ОК ")
+
+    back = reviewspage.back()
+    assert back is not None, "Кнопка возврата не найдена"
+    logging.info("Кнопка ОК")
+
+    photo = reviewspage.photo_vid()
+    assert photo is not None, "Кнопка фото не найдена"
+    logging.info("Кнопка ОК")
+
+    hoceky = reviewspage.hockey_button()
+    assert hoceky is not None, "Кнопка хоккея не найдена"
+    logging.info("Кнопка ОК")
+
+    reviewspage.reviews()
+    assert reviewspage.reviews(expected_count=30), "Кол-во статей не соответствует ожидаемому"
+    logging.info("Кол-во статей ОК")
