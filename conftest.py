@@ -2,11 +2,21 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+import logging
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 @pytest.fixture()
 def browser():
+
+    logging.basicConfig(
+        level=logging.INFO,  # или DEBUG для более детальных логов
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler("test_logs.log"),  # логи в файл
+            logging.StreamHandler()  # логи в консоль
+        ]
+    )
     options = Options()
     options.page_load_strategy="eager"
     service = Service()

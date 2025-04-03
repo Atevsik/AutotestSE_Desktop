@@ -9,32 +9,24 @@ def test_reviewspage(browser):
 
     h1 = reviewspage.h1_rev()
     assert h1 is not None, "Заголовок не найден"
-    logging.info("Заголовок ОК")
 
     button1 = reviewspage.button_main()
     assert button1 is not None, "Кнопка Главная не найдена"
-    logging.info("Кнопка ОК ")
 
     button2 = reviewspage.button_readers()
     assert button2 is not None, "Кнопка Читатели не найдена"
-    logging.info("Кнопка ОК ")
 
     button3 = reviewspage.button_exclusive()
     assert button3 is not None, "Кнопка Эксклюзив не найдена"
-    logging.info("Кнопка ОК ")
 
     back = reviewspage.back()
     assert back is not None, "Кнопка возврата не найдена"
-    logging.info("Кнопка ОК")
 
     photo = reviewspage.photo_vid()
     assert photo is not None, "Кнопка фото не найдена"
-    logging.info("Кнопка ОК")
 
     hoceky = reviewspage.hockey_button()
     assert hoceky is not None, "Кнопка хоккея не найдена"
-    logging.info("Кнопка ОК")
 
     reviewspage.reviews()
     assert reviewspage.reviews(expected_count=30), "Кол-во статей не соответствует ожидаемому"
-    logging.info("Кол-во статей ОК")

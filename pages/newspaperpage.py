@@ -1,32 +1,61 @@
-from selenium.webdriver.common.by import By
 from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import unittest
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import logging
+import time
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class PaperGazeta:
 
     def __init__(self, browser):
         self.browser = browser
-
+        self.wait = WebDriverWait(self.browser, 15)
+        self.original_window = None
 
     def open_gazeta(self):
         self.browser.get('https://www.sport-express.ru/newspaper/')
-        sleep(6)
 
-    def calendar_gazet(self):
-        calendar_gazet = self.browser.find_element(By.XPATH, '//span[@id="calendar_icon"]')
-        calendar_gazet.click()
+    def calendar(self):
+        try:
+            calendar = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'//span[@id="calendar_icon"]')))
+            logging.info("Кнопка календаря найдена")
+            calendar.click()
+            sleep(3)
+            return calendar
+        except TimeoutException:
+            logging.info("Кнопка календаря не найдена")
+            return None
 
-    def calendar_gazet_prov(self):
-        calendar_gazet_prov = self.browser.find_element(By.XPATH, '//div[@id="ui-datepicker-div"]')
+    def proverka(self):
+        try:
+            proverka = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@id='ui-datepicker-div']")))
+            logging.info("Календарь отображается")
+            return proverka
+        except TimeoutException:
+            logging.info("Календарь не отображается")
+            return None
 
-    def filtr_gaz(self):
-        filtr_gaz = self.browser.find_element(By.XPATH, '//div[@class="se19-rubricator__group"][1]')
+    def reklama(self):
+        try:
+            reklama = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[@id='adfox_1479211722']")))
+            logging.info("Реклама отображается")
+            return reklama
+        except TimeoutException:
+            logging.warning("Реклама не отображается (нормальное поведение)")
+            return None
 
-    def vid_sporta_gaz(self):
-        vid_sporta_gaz = self.browser.find_element(By.XPATH, '//div[@class="se19-rubricator"]')
-        vid_sporta_gaz.click()
 
-    def proverka_Vid_sporta(self):
-        proverka_Vid_sporta = self.browser.find_element(By.XPATH, '//div[@id="se-newspaper-content"]')
+    def polosi(self):
+        try:
+            polosi = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[contains(text(),'Полоса 1')]")))
+            logging.info("Полосы отображаются")
+            return polosi
+        except TimeoutException:
+            logging.info("Полосы не отображаются")
+            return None

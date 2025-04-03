@@ -1,17 +1,23 @@
+import logging
+
 from selenium.webdriver.common.by import By
 from pages.newspaperpage import PaperGazeta
 
 def test_newspapers(browser):
     newspaperspage = PaperGazeta(browser)
     newspaperspage.open_gazeta()
-    newspaperspage.calendar_gazet()
-    newspaperspage.calendar_gazet_prov()
-    newspaperspage.filtr_gaz()
-    newspaperspage.vid_sporta_gaz()
-    newspaperspage.proverka_Vid_sporta()
 
+    reklama = newspaperspage.reklama()
+    if reklama is None:
+        logging.warning("Реклама не выводится, это норма")
+    else:
+        logging.info("Реклама выводится")
 
+    btn_calend = newspaperspage.calendar()
+    assert btn_calend is not None,"Кнопка календаря не найдена"
 
+    proverka = newspaperspage.proverka()
+    assert proverka is not None,"Календарь не отображается"
 
-
-
+    polosi = newspaperspage.polosi()
+    assert polosi is not None, "Полосы не отображаются"

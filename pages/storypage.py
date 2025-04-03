@@ -1,37 +1,54 @@
-from selenium.webdriver.common.by import By
 from time import sleep
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import logging
+import time
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 class StoryPage:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 10)
+        self.original_window = None
 
 
     def open_story(self):
         self.browser.get('https://www.sport-express.ru/stories/')
-        sleep(6)
 
-    def h1_news_story(self):
-        h1_news_story = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Весь спорт.")]')
+    def h1_story(self):
+        try:
+            h1_story = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'//h1[contains(text(),"Весь спорт.")]')))
+            logging.info("Заголовок найден")
+            return h1_story
+        except TimeoutException:
+            logging.info("Заголовок не найден")
+            return None
 
-    def button_story(self, count):
-        button_story = self.browser.find_elements(By.XPATH, '//div[@class="se-material-list-filter__button-holder"]')
-        assert len(button_story) == count
+    def baskt(self):
+        try:
+            basket = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Баскетбол')]")))
+            logging.info("Баскетбол найдено")
+            basket.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/', "Не правильный урл баскетболла"
+            return basket
+        except TimeoutException:
+            logging.info("Баскетбол не найдено")
+            return None
 
-    def button_story_click(self):
-        button_story_click = self.browser.find_element(By.XPATH, '//div[@class="se-material-list-filter__bottom-left"]')
 
-    def vid_materiala_button_story(self):
-        vid_materiala_button_story = self.browser.find_elements(By.XPATH, '//div[@class="se-material-filter__top-left"]')
-
-    def vid_sporta_button_story(self):
-        vid_sporta_button_story = self.browser.find_elements(By.XPATH, '//div[@class="se-material-filter-menu"]')
-
-    def bask_button(self):
-        bask_button = self.browser.find_element(By.XPATH, '''//a[contains(@class,'se-material-filter-menu__item-button')][contains(text(),"Баскетбол")]''')
-        bask_button.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/', "OSHIBKA УРЛА"
-
-    def button_nextpage(self):
-        button_nextpage = self.browser.find_element(By.XPATH,'//a[contains(text(),"Показать еще")]')
-        button_nextpage.click()
+    def next_page(self):
+        try:
+            next_page = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Показать еще')]")))
+            logging.info("Кнопка показать еще найдена")
+            next_page.click()
+            sleep(3)
+            assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/page2/', "Не правильная вторая страница"
+            return next_page
+        except TimeoutException:
+            logging.info("Кнопка показать еще не найдена")
+            return None
