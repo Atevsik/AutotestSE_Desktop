@@ -1,50 +1,113 @@
-from selenium.webdriver.common.by import By
 from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import logging
+import time
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 class VideoPage:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 17)
+        self.original_window = None
 
 
     def open_video(self):
         self.browser.get('https://www.sport-express.ru/videoreports/')
-        sleep(6)
 
-    def h1_news_video(self):
-        h1_news_video = self.browser.find_element(By.XPATH, '//h1[contains(text(),"Видео")]')
 
-    def button_video(self, count):
-        button_video = self.browser.find_elements(By.XPATH, '//div[@class="se-material-list-filter__button-holder"]')
-        assert len(button_video) == count
+    def h1_video(self):
+        try:
+            h1_video = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h1[contains(text(),'Видео')]")))
+            logging.info("Заголовок найден")
+            return h1_video
+        except TimeoutException:
+            logging.info("Заголовок не найден")
+            return None
 
-    def button_video_click(self):
-        button_video_click = self.browser.find_element(By.XPATH, '//a[contains(text(),"Главные")]')
-        button_video_click.click()
-        sleep(30)
-        assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isEditorialChoice=1', "Неверный урл Главные кнпк"
+    def button_main(self):
+        try:
+            button1 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'//a[contains(text(),"Главные")]')))
+            logging.info("Кнопка найдена и видна")
+            button1.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isEditorialChoice=1', "Неверный урл Главные кнопки"
+            return button1
+        except TimeoutException:
+            logging.info("Кнопка не найден")
+            return None
 
-    def button_readers_video(self):
-        button_readers_video = self.browser.find_element(By.XPATH, '//a[contains(text(),"Выбор читателей")]')
-        button_readers_video.click()
-        sleep(30)
-        assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isHot=1', "Не верный урл Выбор читателей"
+    def button_readers(self):
+        try:
+            button2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'//a[contains(text(),"Выбор читателей")]')))
+            logging.info("Кнопка найдена и видна")
+            button2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isHot=1', "Не верный урл Выбор читателей"
+            return button2
+        except TimeoutException:
+            logging.info("Заголовок не найден")
+            return None
 
-    def button_exclusive_video(self):
-        button_exclusive_video = self.browser.find_element(By.XPATH, '//a[contains(text(),"Эксклюзив")]')
-        button_exclusive_video.click()
-        sleep(30)
-        assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isExclusive=1', "Не верный урл кнопки эксклюз"
+    def button_exclusive(self):
+        try:
+            button3 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Эксклюзив')]")))
+            logging.info("Кнопка найдена и видна")
+            button3.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isExclusive=1', "Не верный урл кнопки эксклюз"
+            return button3
+        except TimeoutException:
+            logging.info("Заголовок не найден")
+            return None
 
-    def vid_materiala_button_vid(self):
-        vid_materiala_button_vid = self.browser.find_elements(By.XPATH, '//div[@class="se-material-filter__top-left"]')
+    def back(self):
+        try:
+            back = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Весь спорт')]")))
+            logging.info("Кнопка найдена и видна")
+            back.click()
+            return back
+        except TimeoutException:
+            logging.info("Кнопка не найдена")
+            return None
 
-    def vid_sporta_button_vid(self):
-        vid_sporta_button_vid = self.browser.find_elements(By.XPATH, '//div[@class="se-material-filter-menu"]')
+    def reklama(self):
+        try:
+            reklama = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@id='adfox_15645683733586888']")))
+            logging.info("Реклама найдена")
+            return reklama
+        except TimeoutException:
+            logging.info("Реклама не найдена")
+            return None
 
-    def mma_button(self):
-        mma_button = self.browser.find_element(By.XPATH, '''//a[contains(@class,'se-material-filter-menu__item-button')][contains(text(),"Бокс/ММА")]''')
-        mma_button.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/martial/videoreports/', "OSHIBKA УРЛА"
+    def story(self):
+        try:
+            story = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Сюжеты')]")))
+            logging.info("Сюжеты найдены")
+            story.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/stories/', "Не правильный урл сюжета"
+            self.browser.back()
+            return story
+        except TimeoutException:
+            logging.info("Сюжеты не найдены")
+            return None
+
+    def mma(self):
+        try:
+            mma = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[@class='se-material-filter-menu__item-button '][contains(text(),'Бокс/ММА')]")))
+            logging.info("Кнопка ММа найдена")
+            mma.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/martial/videoreports/', "Не правильный урл ММА"
+            return mma
+        except TimeoutException:
+            logging.info("MMA не найдено")
+            return None

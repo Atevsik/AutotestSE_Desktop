@@ -6,6 +6,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import logging
 import time
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 class ReviewsPage:
 
     def __init__(self, browser):
