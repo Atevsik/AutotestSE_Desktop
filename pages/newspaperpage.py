@@ -16,7 +16,6 @@ class PaperGazeta:
 
     def open_gazeta(self):
         self.browser.get('https://www.sport-express.ru/newspaper/')
-        sleep(6)
 
     def calendar(self):
         try:
@@ -37,7 +36,6 @@ class PaperGazeta:
             logging.info("Календарь отображается")
             return proverka
         except TimeoutException:
-            logging.info("Календарь не отображается")
             return None
 
     def reklama(self):
@@ -47,7 +45,6 @@ class PaperGazeta:
             logging.info("Реклама отображается")
             return reklama
         except TimeoutException:
-            logging.warning("Реклама не отображается (нормальное поведение)")
             return None
 
 
@@ -58,5 +55,4 @@ class PaperGazeta:
             logging.info("Полосы отображаются")
             return polosi
         except TimeoutException:
-            logging.info("Полосы не отображаются")
             return None

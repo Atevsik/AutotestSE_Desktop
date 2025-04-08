@@ -24,7 +24,6 @@ class PhotoPage:
             logging.info("Заголовок найден")
             return h1_photo
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def poll(self):
@@ -37,7 +36,6 @@ class PhotoPage:
             self.browser.back()
             return poll
         except TimeoutException:
-            logging.info("Опросы не найдены")
             return None
 
     def fig(self):
@@ -49,7 +47,6 @@ class PhotoPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/figure-skating/photoreports/', "Не правильный урл фигурки"
             return fig
         except TimeoutException:
-            logging.info("Фигурное катание не найдено")
             return None
 
     def reviews(self,expected_count=30):

@@ -18,7 +18,6 @@ class VideoPage:
 
     def open_video(self):
         self.browser.get('https://www.sport-express.ru/videoreports/')
-        sleep(6)
 
 
     def h1_video(self):
@@ -28,7 +27,6 @@ class VideoPage:
             logging.info("Заголовок найден")
             return h1_video
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_main(self):
@@ -40,7 +38,6 @@ class VideoPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isEditorialChoice=1', "Неверный урл Главные кнопки"
             return button1
         except TimeoutException:
-            logging.info("Кнопка не найден")
             return None
 
     def button_readers(self):
@@ -52,7 +49,6 @@ class VideoPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isHot=1', "Не верный урл Выбор читателей"
             return button2
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_exclusive(self):
@@ -64,7 +60,6 @@ class VideoPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/videoreports/?isExclusive=1', "Не верный урл кнопки эксклюз"
             return button3
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def back(self):
@@ -75,7 +70,6 @@ class VideoPage:
             back.click()
             return back
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def reklama(self):
@@ -85,7 +79,6 @@ class VideoPage:
             logging.info("Реклама найдена")
             return reklama
         except TimeoutException:
-            logging.info("Реклама не найдена")
             return None
 
     def story(self):
@@ -98,7 +91,6 @@ class VideoPage:
             self.browser.back()
             return story
         except TimeoutException:
-            logging.info("Сюжеты не найдены")
             return None
 
     def mma(self):
@@ -110,5 +102,4 @@ class VideoPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/martial/videoreports/', "Не правильный урл ММА"
             return mma
         except TimeoutException:
-            logging.info("MMA не найдено")
             return None

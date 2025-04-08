@@ -16,7 +16,6 @@ class StoryPage:
 
     def open_story(self):
         self.browser.get('https://www.sport-express.ru/stories/')
-        sleep(6)
 
     def h1_story(self):
         try:
@@ -25,7 +24,6 @@ class StoryPage:
             logging.info("Заголовок найден")
             return h1_story
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def baskt(self):
@@ -37,7 +35,6 @@ class StoryPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/', "Не правильный урл баскетболла"
             return basket
         except TimeoutException:
-            logging.info("Баскетбол не найдено")
             return None
 
 
@@ -51,5 +48,4 @@ class StoryPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/page2/', "Не правильная вторая страница"
             return next_page
         except TimeoutException:
-            logging.info("Кнопка показать еще не найдена")
             return None

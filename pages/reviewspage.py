@@ -25,7 +25,6 @@ class ReviewsPage:
             logging.info("Заголовок найден")
             return h1_rev
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_main(self):
@@ -37,7 +36,6 @@ class ReviewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/reviews/?isEditorialChoice=1', "Неверный урл Главные кнопки"
             return button1
         except TimeoutException:
-            logging.info("Кнопка не найден")
             return None
 
     def button_readers(self):
@@ -49,7 +47,6 @@ class ReviewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/reviews/?isHot=1', "Не верный урл Выбор читателей"
             return button2
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_exclusive(self):
@@ -61,7 +58,6 @@ class ReviewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/reviews/?isExclusive=1', "Не верный урл кнопки эксклюз"
             return button3
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def back(self):
@@ -72,7 +68,6 @@ class ReviewsPage:
             back.click()
             return back
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def photo_vid(self):
@@ -85,7 +80,6 @@ class ReviewsPage:
             self.browser.back()
             return photo_vid
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def hockey_button(self):
@@ -97,7 +91,6 @@ class ReviewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/hockey/reviews/', "Не правильный урл хоккея"
             return hockey_button
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def reviews(self,expected_count=30):

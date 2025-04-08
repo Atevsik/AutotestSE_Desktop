@@ -17,7 +17,6 @@ class NewsPage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/news/')
-        sleep(6)
 
     def h1_news(self):
         try:
@@ -26,7 +25,6 @@ class NewsPage:
             logging.info("Заголовок найден и виден")
             return h1_news
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_main(self):
@@ -38,7 +36,6 @@ class NewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/news/?isEditorialChoice=1', "Неверный урл Главные кнопки"
             return button1
         except TimeoutException:
-            logging.info("Кнопка не найден")
             return None
 
     def button_readers(self):
@@ -50,7 +47,6 @@ class NewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/news/?isHot=1', "Не верный урл Выбор читателей"
             return button2
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def button_exclusive(self):
@@ -62,7 +58,6 @@ class NewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/news/?isExclusive=1', "Не верный урл кнопки эксклюз"
             return button3
         except TimeoutException:
-            logging.info("Заголовок не найден")
             return None
 
     def reviews_vid(self):
@@ -75,7 +70,6 @@ class NewsPage:
             self.browser.back()
             return reviews_vid
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def football_button(self):
@@ -87,7 +81,6 @@ class NewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/football/news/', "Не правильный урл кнопки Футбол"
             return football_button
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def h1_football_news(self):
@@ -97,7 +90,6 @@ class NewsPage:
             logging.info("Кнопка найдена и видна")
             return h1_football_news
         except TimeoutException:
-            logging.info("Кнопка не найдена")
             return None
 
     def reviews(self,expected_count=30):
@@ -135,7 +127,6 @@ class NewsPage:
             assert self.browser.current_url == 'https://www.sport-express.ru/football/rfpl/news/', "Не правильный турнир"
             return cup_rpl
         except TimeoutException:
-            logging.info("Селектор не найден")
             return None
 
     def reklama_block(self):
@@ -145,5 +136,4 @@ class NewsPage:
             logging.info("Реклама найдена")
             return reklama_block
         except TimeoutException:
-            logging.info("Реклама не найдена")
             return None

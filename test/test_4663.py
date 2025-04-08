@@ -4,11 +4,15 @@ from selenium.webdriver.common.by import By
 def test_pollpage(browser):
     polpage = PollPage(browser)
     polpage.open_poll()
-    polpage.h1_news_poll()
-    polpage.button_poll(3)
-    polpage.button_photo_poll()
-    polpage.vid_sporta_button_poll()
-    polpage.vid_materiala_button_poll()
-    polpage.knopka_eshe_poll()
-    polpage.knopka_eshe_poll_click()
 
+    h1 = polpage.h1_poll()
+    assert h1 is not None,"Заголовок не найден"
+
+    polpage.reviews()
+    assert polpage.reviews(expected_count=30), "Кол-во статей не соответствует ожидаемому"
+
+    eshe = polpage.eshe()
+    assert eshe is not None,"Одна из кнопок не найдена или не была нажата"
+
+    material = polpage.material()
+    assert material is not None,"Материал не найден"

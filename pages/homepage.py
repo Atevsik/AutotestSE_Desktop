@@ -32,10 +32,10 @@ class HomePage:
         try:
             plitka = self.wait.until(
                 EC.visibility_of_element_located((By.XPATH,"//div[@class='se-top-materials-with-photo']")))
-            logging.info("ОК")
+            logging.info("Плитка найдена")
             return plitka
         except TimeoutException:
-            logging.error("No OK")
+            return None
 
 
     def news(self):
@@ -45,8 +45,7 @@ class HomePage:
             logging.info(" Блок с новостями найден и видим!")
             return news
         except TimeoutException:
-            logging.error(" Блок с новостями не найден или не видим!")
-            return
+            return None
 
     def check_metrika_console_events(self):
         try:
@@ -93,8 +92,7 @@ class HomePage:
                 self.browser.back()
                 return main_news
             except TimeoutException:
-                logging.info("Блок не найден или не видим!")
-                return
+                return None
 
     def block_video(self):
         try:
@@ -108,7 +106,6 @@ class HomePage:
             logging.info("Блок не найден после прокрутки")
             return None
         except TimeoutException:
-            logging.info("Блок не найден или не виден")
             return None
 
     def click_video(self):
@@ -121,8 +118,7 @@ class HomePage:
             self.browser.back()
             return click_video
         except TimeoutException:
-            logging.info("Кнопка не была кликнута")
-            return
+            return None
 
 
     def block_reviews(self):
@@ -137,7 +133,6 @@ class HomePage:
             logging.info("Блок статьи не найден после прокрутки")
             return None
         except TimeoutException:
-            logging.info("Блок не найден или не видим")
             return None
 
     def read(self):
@@ -147,7 +142,6 @@ class HomePage:
             logging.info("Блок выбор читателей найден")
             return read
         except  TimeoutException:
-            logging.info("Выбор не найден или не виден")
             return None
 
 
@@ -161,7 +155,6 @@ class HomePage:
             self.browser.back()
             return block_photo
         except TimeoutException:
-            logging.info("Блок не найден или не видим")
             return None
 
     def block_reklama(self):
@@ -176,7 +169,6 @@ class HomePage:
             logging.info("Блок с рекламой не найден после прокрутки")
             return None
         except TimeoutException:
-            logging.info("Блок не найден и не видим")
             return None
 
     def block_table(self):
@@ -189,7 +181,6 @@ class HomePage:
             self.browser.back()
             return block_table
         except TimeoutException:
-            logging.info("Блок не найден")
             return None
 
     def block_stat(self):
@@ -204,10 +195,9 @@ class HomePage:
                    return block_stat
                 except:
                     self.browser.execute_script("window.scrollBy(0, 500);")
-            logging.info("Блок не найден после прокрутки")
+            logging.error("Блок не найден после прокрутки")
             return None
         except TimeoutException:
-            logging.info("Блок не найден и не видим")
             return None
 
 
