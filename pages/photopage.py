@@ -15,6 +15,7 @@ class PhotoPage:
 
     def open_photo(self):
         self.browser.get('https://www.sport-express.ru/photoreports/')
+        sleep(6)
 
     def h1_photo(self):
         try:

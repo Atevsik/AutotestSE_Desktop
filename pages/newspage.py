@@ -17,6 +17,7 @@ class NewsPage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/news/')
+        sleep(6)
 
     def h1_news(self):
         try:

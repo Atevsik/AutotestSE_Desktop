@@ -16,6 +16,7 @@ class HomePage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/')
+        sleep(6)
 
     def tablo_find(self):
        try:

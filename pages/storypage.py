@@ -16,6 +16,7 @@ class StoryPage:
 
     def open_story(self):
         self.browser.get('https://www.sport-express.ru/stories/')
+        sleep(6)
 
     def h1_story(self):
         try:

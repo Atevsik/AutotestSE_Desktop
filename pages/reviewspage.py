@@ -16,6 +16,7 @@ class ReviewsPage:
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/reviews/')
+        sleep(6)
 
     def h1_rev(self):
         try:

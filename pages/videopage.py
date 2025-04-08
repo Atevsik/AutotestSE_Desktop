@@ -18,6 +18,7 @@ class VideoPage:
 
     def open_video(self):
         self.browser.get('https://www.sport-express.ru/videoreports/')
+        sleep(6)
 
 
     def h1_video(self):
