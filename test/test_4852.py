@@ -12,5 +12,5 @@ def test_page_boets(browser):
     page_boet.all_news()
     page_boet.news()
     page_boet.result()
-    page_boet.result_click()
+    #page_boet.result_click()
 

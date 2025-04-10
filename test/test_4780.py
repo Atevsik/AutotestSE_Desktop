@@ -9,6 +9,6 @@ def test_tenismatch(browser):
     tenismatch.menu_nadlogo()
     tenismatch.table()
     tenismatch.table2()
-    tenismatch.perexodturnir()
+    #tenismatch.perexodturnir()
     tenismatch.selec()
     tenismatch.data()

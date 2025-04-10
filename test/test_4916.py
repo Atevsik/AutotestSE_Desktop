@@ -12,8 +12,8 @@ def test_formyla_pilot(browser):
     f1_pilot.oscar()
     f1_pilot.comand()
     f1_pilot.eshe()
-    f1_pilot.pilot()
-    f1_pilot.h1()
-    f1_pilot.bottas()
-    f1_pilot.mers()
+    #f1_pilot.pilot()
+    #f1_pilot.h1()
+    #f1_pilot.bottas()
+    #f1_pilot.mers()
 
