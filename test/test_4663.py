@@ -1,5 +1,4 @@
 from pages.pollpage import PollPage
-from selenium.webdriver.common.by import By
 
 def test_pollpage(browser):
     polpage = PollPage(browser)

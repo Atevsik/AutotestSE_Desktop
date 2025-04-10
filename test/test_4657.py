@@ -1,6 +1,4 @@
-import logging
 
-from selenium.webdriver.common.by import By
 from pages.reviewspage import ReviewsPage
 
 def test_reviewspage(browser):

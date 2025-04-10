@@ -1,5 +1,4 @@
-import logging
-from selenium.webdriver.common.by import By
+
 from pages.storypage import StoryPage
 
 def test_storypage(browser):

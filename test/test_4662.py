@@ -1,5 +1,5 @@
 from pages.onlinepage import OnlinePage
-from selenium.webdriver.common.by import By
+
 
 def test_onlinepage(browser):
     onlinepage = OnlinePage(browser)

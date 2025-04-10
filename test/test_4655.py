@@ -1,6 +1,4 @@
-import pytest
-from selenium.webdriver.common.by import By
-import time
+
 from pages.homepage import HomePage
 import logging
 

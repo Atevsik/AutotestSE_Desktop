@@ -1,6 +1,5 @@
-from selenium.webdriver.common.by import By
+
 from pages.newspage import NewsPage
-import logging
 
 def test_newspage(browser):
     newspage = NewsPage(browser)

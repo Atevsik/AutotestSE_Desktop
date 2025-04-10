@@ -1,6 +1,4 @@
-import logging
 
-from selenium.webdriver.common.by import By
 from pages.photopage import PhotoPage
 
 def test_photopages(browser):
