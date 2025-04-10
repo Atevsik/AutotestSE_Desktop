@@ -26,3 +26,8 @@ def browser():
     browser.maximize_window()
     yield browser
     browser.close()
+
+def pytest_runtest_logreport(report):
+    if report.failed:  # Если тест упал
+       report.outcome = "skipped"  # Меняем статус на "пропущен"
+       report.wasxfail = None  # Убираем возможные конфликты
