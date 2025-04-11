@@ -92,14 +92,13 @@ class DetalReviews:
         except TimeoutException:
             return None
 
-
-    def perexod_calendar(self):
-        perexod_calendar = self.browser.find_element(By.XPATH,'''//a[@class='se-menu-subtop__link'][contains(text(),"Календарь")]''')
-        perexod_calendar.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/football/L/russia/premier/2024-2025/calendar/tours/', "Не правильный урл календаря"
-
-    def selector_season(self):
-        selector_season = self.browser.find_element(By.XPATH, '//div[@class="se19-select-wr mb_20"]')
-
-    def tour(self):
-        tour = self.browser.find_element(By.XPATH,'//tbody/tr[28]/th[1]')
+    def calendar(self):
+        try:
+            calendar = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'''//a[@class='se-menu-subtop__link'][contains(text(),"Календарь")]''')))
+            logging.info("Каленадрь найден")
+            calendar.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/L/russia/premier/2024-2025/calendar/tours/', "Не правильный урл календаря"
+            return calendar
+        except TimeoutException:
+            return None

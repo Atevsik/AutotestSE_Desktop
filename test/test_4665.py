@@ -27,3 +27,6 @@ def test_detalreviews(browser):
 
     footer = detalreviews.footer()
     assert footer is not None, "Подвал не найден"
+
+    calendar = detalreviews.calendar()
+    assert calendar is not None, "Календарь не найден"
