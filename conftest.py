@@ -6,7 +6,7 @@ import logging
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def browser():
 
     logging.basicConfig(
@@ -25,7 +25,7 @@ def browser():
     browser = webdriver.Chrome(service=service, options=options)
     browser.maximize_window()
     yield browser
-    browser.close()
+    browser.quit()
 
 def pytest_runtest_logreport(report):
     if report.failed:  # Если тест упал
