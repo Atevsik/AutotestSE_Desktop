@@ -1,63 +1,172 @@
-from selenium.webdriver.common.by import By
 from time import sleep
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import logging
+import time
 
 
 class GlavnFootball:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 10)
+        self.original_window = None
 
-    def open_glavn_football(self):
+    def open(self):
         self.browser.get('https://www.sport-express.ru/football/')
-        sleep(6)
+        time.sleep(10)
 
-    def menu_nadlogo(self):
-        menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
+    def tablo_find(self):
+        try:
+            tablo_find = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[@class='se-translation-scoreboard__control']")))
+            logging.info("Табло найдено и видимо!")
+            return tablo_find
+        except TimeoutException:
+            logging.error("Блок не найден")
+            return None
 
-    def plitka_glavn(self):
-        plitka_glavn = self.browser.find_element(By.XPATH,"//div[@class='se-materials-grid-mosaic']")
-
-    def glavn_news(self):
-        glavn_news = self.browser.find_element(By.XPATH,'''//div[@class='se-mainnews']//section[@class="se-titled-block"]''')
+    def plitka(self):
+        try:
+            plitka = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[@class='se-top-materials-with-photo']")))
+            logging.info("Плитка найдена")
+            return plitka
+        except TimeoutException:
+            return None
 
     def news(self):
-        news = self.browser.find_element(By.XPATH,'''//div[@class='se-newsline']//section[@class="se-titled-block"]''')
+        try:
+            news = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[contains(text(),'Новости')]")))
+            logging.info(" Блок с новостями найден и видим!")
+            return news
+        except TimeoutException:
+            return None
 
-    def video(self):
-        video = self.browser.find_element(By.XPATH, "//div[@class='se-video-block']")
+    def check_metrika_console_events(self):
+        try:
+            time.sleep(5)
+            logs = self.browser.get_log('browser')
+            logging.info(f"Всего логов в консоли: {len(logs)}")
 
-    def reviews(self):
-        reviews = self.browser.find_element(By.XPATH, "//div[contains(text(),'Статьи')]")
+            if not logs:
+                logging.error("Консоль браузера пуста!")
+                assert False, "Нет логов в консоли браузера"
 
-    def poll(self):
-        poll = self.browser.find_element(By.XPATH,"//section[@class='se-titled-block mb_30']")
+            target_patterns = [
+                "view_main_page_tablo_betcity",
+                "view_main_page_tablo_fonbet",
+                "view_main_page_tablo_betboom",
+                "view_main_page_tablo_winline"
+            ]
 
-    def podval(self):
-        podval = self.browser.find_element(By.XPATH, '//footer[@class="se-footer"]')
+            found = False
+            for log in logs:
+                message = log.get('message', '')
+                if any(target in message for target in target_patterns):
+                    logging.info(f"Найдено событие Метрики: {message[:300]}...")
+                    found = True
+                    break
 
-    def result(self):
-        result = self.browser.find_element(By.XPATH, '''//a[@class='se-menu-subtop__link'][contains(text(),"Результаты")]''')
-        result.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/live/football/', "Не правильный урл, результаты"
+            if not found:
+                logging.error("Нужные события не найдены. Последние логи:")
+                for log in logs[-5:]:
+                    logging.error(f"➜ {log.get('message', '')[:200]}...")
+                assert False, "События Метрики не найдены в консоли"
+            return True
+        except Exception as e:
+            logging.error(f"Ошибка при проверке консоли: {str(e)}")
+            assert False, f"Ошибка проверки консоли: {str(e)}"
 
-    def title(self):
-        title = self.browser.find_element(By.XPATH, "//div[@class='sp-sport-page__title']")
+    def main_news(self):
+        try:
+            main_news = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Главные новости')]")))
+            logging.info("Главные новости видны и найдены!")
+            main_news.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/news/?isEditorialChoice=1', "Не правильная ссылка блока главные новости"
+            self.browser.back()
+            return main_news
+        except TimeoutException:
+            return None
 
-    def sport_navigator(self):
-        sport_navigator = self.browser.find_element(By.XPATH,"//div[@class='se-sport-navigator']")
+    def block_video(self):
+        try:
+            for _ in range(20):
+                try:
+                    block_video = self.browser.find_element(By.XPATH, "//div[@class='se-titled-block']")
+                    logging.info("Блок найден и виден")
+                    return block_video
+                except:
+                    self.browser.execute_script("window.scrollBy(0, 500);")
+            logging.info("Блок не найден после прокрутки")
+            return None
+        except TimeoutException:
+            return None
 
-    def vid_materiala(self):
-        vid_materiala = self.browser.find_element(By.XPATH,"//div[@class='swiper-wrapper']")
+    def click_video(self):
+        try:
+            click_video = self.wait.until(
+                EC.visibility_of_element_located(
+                    (By.XPATH, "//a[@class='se-link se-link--arrow-right'][contains(text(),'Больше видео')]")))
+            logging.info("Кнопка найдена и видна!")
+            click_video.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/videoreports/', "Не правильная ссылка кнопка больше видео"
+            self.browser.back()
+            return click_video
+        except TimeoutException:
+            return None
+
+    def block_reviews(self):
+        try:
+            for _ in range(20):
+                try:
+                    block_reviews = self.browser.find_element(By.XPATH, "//div[contains(text(),'Статьи')]")
+                    logging.info("Блок статьи найден и виден")
+                    return block_reviews
+                except:
+                    self.browser.execute_script("window.scrollBy(0, 500);")
+            logging.info("Блок статьи не найден после прокрутки")
+            return None
+        except TimeoutException:
+            return None
+
+
+    def block_photo(self):
+        try:
+            block_photo = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Новые альбомы')]")))
+            logging.info("Блок с фото найден и видим")
+            block_photo.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/photoreports/', "Не правильная ссылка все фото"
+            self.browser.back()
+            return block_photo
+        except TimeoutException:
+            return None
 
     def block_reklama(self):
-        block_reklama = self.browser.find_element(By.XPATH,"//div[@id='adfox_15645683733586888']")
+        try:
+            for _ in range(20):
+                try:
+                    block_reklama = self.browser.find_element(By.XPATH, "//div[@id='adfox_15645683733586888']")
+                    logging.info("Блок с рекламой найден и видим")
+                    return block_reklama
+                except:
+                    self.browser.execute_script("window.scrollBy(0, 500);")
+            logging.info("Блок с рекламой не найден после прокрутки")
+            return None
+        except TimeoutException:
+            return None
 
-    def bokmeker(self):
-        bokmeker = self.browser.find_element(By.XPATH,"//div[@class='se-matchcenter-sports-list__extra']")
 
-    def stavka(self):
-        stavka = self.browser.find_element(By.XPATH,"//div[@class='se-matchcenter-match-extra__bets']")
-
-
-
-
+    def block_poll(self):
+        try:
+            poll = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[contains(text(),'Опрос')]")))
+            logging.info("Блок опросс найден")
+            return poll
+        except TimeoutException:
+            return None
