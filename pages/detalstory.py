@@ -1,55 +1,183 @@
-from selenium.webdriver.common.by import By
 from time import sleep
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
+import logging
 
 class DetalStory:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 15)
+        self.original_window = None
 
     def open_detal_story(self):
         self.browser.get('https://www.sport-express.ru/football/rus_cup/stories/kubok-rossii-pley-off-puti-rpl-i-regionov-1-4-finala-1-2-i-final-zherebevka-pary-i-rezultaty-matchey-2023-2024-2140252/')
-        sleep(6)
 
     def menu_nadlogo(self):
-        menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
+        try:
+            menu_nadlogo = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')))
+            logging.info("Меню найдено")
+            return menu_nadlogo
+        except TimeoutException:
+            return None
 
-    def podval(self):
-        podval = self.browser.find_element(By.XPATH, '//footer[@class="se-footer"]')
 
-    def block_reviews(self):
-        block_reviews = self.browser.find_element(By.XPATH, '//div[@class="se-material-page"]//div[1]//section[1]')
+    def h1(self):
+        try:
+            h1 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h1[contains(text(),'Кубок России: плей-офф и финалы пути РПЛ и пути ре')]")))
+            logging.info("Заголовок найден")
+            return h1
+        except TimeoutException:
+            return None
 
-    def block_news(self):
-        block_news = self.browser.find_element(By.XPATH, '//div[@class="se-grid2col__left"]//div[2]//section[1]')
+    def social(self):
+        try:
+            social = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@class='se-material-page__social']")))
+            logging.info("Лайки и дизлайки найдены")
+            return social
+        except TimeoutException:
+            return None
 
-    def block_video(self):
-        block_video = self.browser.find_element(By.XPATH,'//div[@class="se-material-page__footer-stories"]//div[3]//section[1]')
+    def material(self,expected_count=16):
+        try:
+            material = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH,"//div[@class='clearfix icon_flag']")))
+            actual_count = len(material)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить список статей")
+            return False
 
-    def block_photo(self):
-        block_photo = self.browser.find_element(By.XPATH, '//div[@class="se-material-page__footer"]//div[4]//section[1]')
+    def reviews(self):
+        try:
+            reviews = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h3[contains(text(),'Статьи')]")))
+            logging.info("Блок статьи найден")
+            return reviews
+        except TimeoutException:
+            return None
 
-    def rev_knp(self,count):
-        rev_knp = self.browser.find_elements(By.XPATH,'//a[@class="se-button se-button--size-middle more_button"][1]')
-        assert len(rev_knp) == count
+    def click_reviews(self,expected_count=22):
+        try:
+            click_reviews = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//body/div[@class='se-page-wrapper']/section[@class='se-page-content se-center-wrapper']/div[@class='se-page-content__inner']/div[@class='se-grid2col']/div[@class='se-grid2col__left']/div[@class='se-material-page']/div[@class='se-material-page__footer']/div[@class='se-material-page__footer-stories']/div[1]/section[1]/div[2]/a[1]")))
+            click_reviews.click()
 
-    def click_knp(self):
-        click_knp = self.browser.find_element(By.XPATH,'//a[@class="se-button se-button--size-middle more_button"][1]')
-        click_knp.click()
+            material = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH,"//div[@class='clearfix icon_flag']")))
+            actual_count = len(material)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить список статей")
+            return False
 
-    def calendar_nad_menu(self):
-        calendar_nad_menu = self.browser.find_element(By.XPATH,'''//a[@class='se-menu-subtop__link'][contains(text(),"Календарь")]''')
-        calendar_nad_menu.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/football/L/russia/cup/2024-2025/calendar/tours/', "Не правильный урл календаря"
+    def news(self):
+        try:
+            news = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h3[contains(text(),'Новости')]")))
+            logging.info("Блок новости найден")
+            return news
+        except TimeoutException:
+            return None
 
-    def h1_calend_det(self):
-        h1_calen_det = self.browser.find_element(By.XPATH,'//h1[contains(text(),"FONBET Кубок России 2024-2025, расписание матчей, ")]')
+    def click_news(self,expected_count=24):
+        try:
+            click_news = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//body/div[@class='se-page-wrapper']/section[@class='se-page-content se-center-wrapper']/div[@class='se-page-content__inner']/div[@class='se-grid2col']/div[@class='se-grid2col__left']/div[@class='se-material-page']/div[@class='se-material-page__footer']/div[@class='se-material-page__footer-stories']/div[2]/section[1]/div[2]/a[1]")))
+            click_news.click()
 
-    def filtri(self):
-        filtri = self.browser.find_element(By.XPATH,'//div[@class="se19-select-wr mb_20"]')
+            material = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH,"//div[@class='se19-news-item mr_35']")))
+            actual_count = len(material)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить список статей")
+            return False
 
-    def click_match(self):
-        click_match = self.browser.find_element(By.XPATH,'//tbody/tr[2]/td[3]/div[1]/p[1]/a[1]')
-        click_match.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/football/rus_cup/fbl_match-spartak-dinamo-399751/', "Не правильный матч"
+    def video(self):
+        try:
+            video = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h3[contains(text(),'Видео')]")))
+            logging.info("Блок видео найден")
+            return video
+        except TimeoutException:
+            return None
 
+    def click_video(self,expected_count=34):
+        try:
+            click_video = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//body/div[@class='se-page-wrapper']/section[@class='se-page-content se-center-wrapper']/div[@class='se-page-content__inner']/div[@class='se-grid2col']/div[@class='se-grid2col__left']/div[@class='se-material-page']/div[@class='se-material-page__footer']/div[@class='se-material-page__footer-stories']/div[3]/section[1]/div[2]/a[1]")))
+            click_video.click()
+
+            material = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH,"//div[@class='clearfix icon_flag']")))
+            actual_count = len(material)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить список статей")
+            return False
+
+    def photo(self):
+        try:
+            photo = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//h3[contains(text(),'Фото')]")))
+            logging.info("Блок фото найден")
+            return photo
+        except TimeoutException:
+            return None
+
+    def click_photo(self,expected_count=44):
+        try:
+            click_photo = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//body/div[@class='se-page-wrapper']/section[@class='se-page-content se-center-wrapper']/div[@class='se-page-content__inner']/div[@class='se-grid2col']/div[@class='se-grid2col__left']/div[@class='se-material-page']/div[@class='se-material-page__footer']/div[@class='se-material-page__footer-stories']/div[4]/section[1]/div[2]/a[1]")))
+            click_photo.click()
+
+            material = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH,"//div[@class='clearfix icon_flag']")))
+            actual_count = len(material)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить список статей")
+            return False
+
+    def calend(self):
+        try:
+            calen = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Календарь')]")))
+            logging.info("Календарь найден")
+            calen.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/L/russia/cup/2024-2025/calendar/tours/', "Не правильный урл календаря"
+            return calen
+        except TimeoutException:
+            return None
