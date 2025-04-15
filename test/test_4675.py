@@ -5,11 +5,18 @@ from selenium.webdriver.common.by import By
 def test_mc1(browser):
     mc1 = Mc1(browser)
     mc1.open()
-    mc1.menu_nadlogo()
-    mc1.reklama()
-    mc1.booker()
-    mc1.vid_materiala()
-    mc1.filtr_date()
-    mc1.football_mc()
-    mc1.logo_bok()
-    mc1.stavki()
+
+    menu = mc1.menu_nadlogo()
+    assert menu is not None, "Меню не найдено"
+
+    mc1.check_metrika_console_events()
+    mc1.click_and_check_metrika_events()
+
+    btn = mc1.buttons()
+    assert btn is not None, "Кнопки не найдены"
+
+    calend = mc1.data_calend()
+    assert calend is not None, "Кнопка календаря не найдена"
+
+    seclect = mc1.selector()
+    assert seclect is not None, "Селектор не найден или меню"

@@ -1,17 +1,26 @@
 from pages.mcfootball import McFootball
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
 
 def test_mcfootball(browser):
     mcfootball = McFootball(browser)
     mcfootball.open()
-    mcfootball.football_mc()
-    mcfootball.filtr_date()
-    mcfootball.knopka_kalendar()
-    mcfootball.tomorow()
-    mcfootball.logo_bok()
-    mcfootball.stavki()
-    mcfootball.podval()
-    mcfootball.navigator_sport()
-    mcfootball.regbi()
-    mcfootball.read_news()
+
+    reklama = mcfootball.reklama()
+    assert reklama is not None,"Реклама не найдена"
+
+    h1 = mcfootball.h1()
+    assert h1 is not None, "Заголовок не найден"
+
+    mcfootball.check_metrika_console_events()
+    mcfootball.click_and_check_metrika_events()
+
+    btn = mcfootball.buttons()
+    assert btn is not None, "Кнопки не найдены"
+
+    calend = mcfootball.data_calend()
+    assert calend is not None, "Календарь не найден"
+
+    footer = mcfootball.footer()
+    assert footer is not None, "Подвал не найден"
+
+    select = mcfootball.selector()
+    assert select is not None, "Проблемы с селектором"

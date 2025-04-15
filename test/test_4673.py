@@ -1,5 +1,4 @@
 from pages.glavnfootball import GlavnFootball
-from selenium.webdriver.common.by import By
 
 def test_glavnnews(browser):
     glawnnews = GlavnFootball(browser)

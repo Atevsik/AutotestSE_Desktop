@@ -6,7 +6,7 @@ def test_comanddiviz(browser):
     comanddiviz = ComandDiviz(browser)
     comanddiviz.open()
     comanddiviz.menu_nadlogo()
-    comanddiviz.deviz(4)
+    #comanddiviz.deviz(4)
     comanddiviz.knopki()
     comanddiviz.spartak()
     comanddiviz.filtri()

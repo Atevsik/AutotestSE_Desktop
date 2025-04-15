@@ -1,5 +1,4 @@
 from pages.datallive import DetalLive
-from selenium.webdriver.common.by import By
 
 def test_detallive(browser):
     detallive = DetalLive(browser)
