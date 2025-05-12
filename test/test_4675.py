@@ -1,6 +1,5 @@
 from pages.mc1 import Mc1
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
+
 
 def test_mc1(browser):
     mc1 = Mc1(browser)
