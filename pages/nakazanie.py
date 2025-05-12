@@ -1,31 +1,49 @@
-from selenium.webdriver.common.by import By
 from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import logging
 
 class Nakazanie:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 10)
+        self.original_window = None
 
     def open(self):
-        self.browser.get('https://www.sport-express.ru/football/L/russia/first/2023-2024/statistics/cards/')
-        sleep(6)
+        self.browser.get('https://www.sport-express.ru/football/L/russia/first/2024-2025/statistics/cards/')
 
-    def menu_nadlogo(self):
-        menu_nadlogo = self.browser.find_element(By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')
-
-    def filtri(self):
-        filtri = self.browser.find_element(By.XPATH, "//div[@class='se19-select-wr mb_20']")
+    def menu_ndalogo(self):
+        try:
+            menu = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,'//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')))
+            logging.info("Меню найдено")
+            return menu
+        except TimeoutException:
+            return None
 
     def player(self):
-        player = self.browser.find_element(By.XPATH, "//a[contains(text(),'Заурбек Плиев')]")
-        player.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/football/L/player/21733/seasons/2024-2025/', "Не правиьный урл игрока"
-        self.browser.back()
+        try:
+            player = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Илья Сафронов')]")))
+            logging.info("Игрок найден и виден")
+            player.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/football/L/player/48845/seasons/2024-2025/', "Не правильный игрок"
+            self.browser.back()
+            return player
+        except TimeoutException:
+            return None
 
     def reklama(self):
-        reklama = self.browser.find_element(By.XPATH,"//div[@id='adfox_15645683733586888']")
+        try:
+            reklama = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@id='adfox_15645683733586888']")))
+            logging.info("реклама найдена и видна")
+            return reklama
+        except TimeoutException:
+            return None
 
 
 

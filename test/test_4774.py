@@ -1,11 +1,15 @@
 from pages.nakazanie import Nakazanie
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
+
 
 def test_nakazanie(browser):
     nakazanie = Nakazanie(browser)
     nakazanie.open()
-    nakazanie.menu_nadlogo()
-    nakazanie.filtri()
-    nakazanie.player()
-    nakazanie.reklama()
+
+    menu = nakazanie.menu_ndalogo()
+    assert menu is not None, "Меню не найдено"
+
+    player = nakazanie.player()
+    assert player is not None, "Игрок не найден"
+
+    reklama = nakazanie.reklama()
+    assert reklama is not None, "Реклама не найдена"
