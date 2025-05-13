@@ -1,12 +1,23 @@
 from pages.comandsdiviz import ComandDiviz
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
 
 def test_comanddiviz(browser):
     comanddiviz = ComandDiviz(browser)
     comanddiviz.open()
-    comanddiviz.menu_nadlogo()
-    #comanddiviz.deviz(4)
-    comanddiviz.knopki()
-    comanddiviz.spartak()
-    comanddiviz.filtri()
+
+    comanddiviz.deviz()
+    assert comanddiviz.deviz(expected_count=4), "Кол-во девезионов не соответствует ожидаемому"
+
+    comands = comanddiviz.comands()
+    assert comands is not None, "Не работают кнопки команд"
+
+    reklama = comanddiviz.reklama()
+    assert reklama is not None, "Реклама не найдена"
+
+    data = comanddiviz.data()
+    assert data is not None, "Не найден селектор с датой"
+
+    comanddiviz.deviz()
+    assert comanddiviz.deviz(expected_count=4), "Кол-во девезионов не соответствует ожидаемому"
+
+    h1 = comanddiviz.h1()
+    assert h1 is not None, "Заголовок не найден"
