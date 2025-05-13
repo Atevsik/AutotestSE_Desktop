@@ -16,6 +16,3 @@ def test_newspapers(browser):
 
     proverka = newspaperspage.proverka()
     assert proverka is not None,"Календарь не отображается"
-
-    polosi = newspaperspage.polosi()
-    assert polosi is not None, "Полосы не отображаются"

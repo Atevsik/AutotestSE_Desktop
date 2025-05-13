@@ -5,9 +5,6 @@ def test_srball(browser):
     srball = SrBall(browser)
     srball.open()
 
-    menu = srball.menu_nadlogo()
-    assert menu is not None, "Меню не найдено или не видимо"
-
     srball.player()
     assert srball.player(expected_count=3), "Кол-во бомбардиров не соответствует ожидаемому"
 

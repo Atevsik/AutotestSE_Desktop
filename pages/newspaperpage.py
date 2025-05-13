@@ -45,13 +45,3 @@ class PaperGazeta:
             return reklama
         except TimeoutException:
             return None
-
-
-    def polosi(self):
-        try:
-            polosi = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH,"//div[contains(text(),'Полоса 1')]")))
-            logging.info("Полосы отображаются")
-            return polosi
-        except TimeoutException:
-            return None

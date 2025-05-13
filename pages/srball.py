@@ -16,15 +16,6 @@ class SrBall:
     def open(self):
         self.browser.get('https://www.sport-express.ru/football/L/russia/premier/2023-2024/statistics/estimation/')
 
-    def menu_nadlogo(self):
-        try:
-            menu = self.wait.until(
-                EC.visibility_of_element_located(
-                    (By.XPATH, '//div[@class="se-menu-subtop se-menu-subtop--breadcrumb"]')))
-            logging.info("меню найдено и видимо")
-            return menu
-        except TimeoutException:
-            return None
 
     def player(self, expected_count=3):
         try:
