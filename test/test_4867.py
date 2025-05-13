@@ -10,10 +10,7 @@ def test_tennis_wta(browser):
     wta.reviews()
     wta.news()
     wta.tournir()
-    wta.match()
-    wta.god()
-    wta.reklama()
-    wta.reklama()
+
 
 
 

@@ -28,7 +28,7 @@ class StoryPage:
     def baskt(self):
         try:
             basket = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Баскетбол')]")))
+                EC.visibility_of_element_located((By.XPATH,"//a[@class='se-material-filter-menu__item-button '][contains(text(),'Баскетбол')]")))
             logging.info("Баскетбол найдено")
             basket.click()
             assert self.browser.current_url == 'https://www.sport-express.ru/basketball/stories/', "Не правильный урл баскетболла"

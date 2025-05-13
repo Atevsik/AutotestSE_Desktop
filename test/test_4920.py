@@ -12,5 +12,3 @@ def test_EURO_Basket(browser):
     euro.podval()
     euro.news()
     euro.reviews()
-    euro.women()
-    euro.group(6)

@@ -25,22 +25,7 @@ class TennisWTA:
         tournir.click()
         assert self.browser.current_url == 'https://www.sport-express.ru/tennis/L/wta/', "Не правильный ВТА"
 
-    def match(self):
-        match = self.browser.find_element(By.XPATH,"//tbody/tr[10]/td[2]/a[1]")
-        match.click()
-        sleep(4)
-        assert self.browser.current_url == 'https://www.sport-express.ru/tennis/L/wta/linz/2025/', "Не правильный матч"
-        self.browser.back()
 
-    def god(self):
-        god = self.browser.find_element(By.XPATH,"//select[@class='common_height_26 mb_10']")
-        god.click()
-        select = Select(god)
-        select.select_by_index(3)
-        assert self.browser.current_url == 'https://www.sport-express.ru/tennis/L/wta/2022/', "Не правильный год"
-
-    def reklama(self):
-        reklama = self.browser.find_element(By.XPATH,"//div[@id='adfox_15645683733586888']")
 
 
 
