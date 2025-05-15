@@ -1,11 +1,10 @@
-from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import logging
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select
+
 
 
 class MmaRaiting:
@@ -139,9 +138,9 @@ class MmaRaiting:
 
     def reklama(self):
         try:
-            reklama = self.wait.until((By.XPATH,"//div[@id='adfox_15645683733586888']")))
+            reklama = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@id='adfox_15645683733586888']")))
             logging.info("Реклама найдена")
             return reklama
         except TimeoutException:
             return None
-
