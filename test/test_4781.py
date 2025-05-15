@@ -1,12 +1,27 @@
+import logging
+
 from pages.tennisraiting import TennisRaiting
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
+
 
 
 def test_tenisraiting(browser):
     tenisraiting = TennisRaiting(browser)
     tenisraiting.open()
-    tenisraiting.menu_nadlogo()
-    tenisraiting.vibor()
-    tenisraiting.vibor()
-    tenisraiting.vivod()
+
+    menu = tenisraiting.menu()
+    assert menu is not None, "Меню не найдено или не видимо"
+
+    reklama = tenisraiting.reklama()
+    assert reklama is not None, "Реклама не найдена"
+
+    proverka = tenisraiting.verify_all_elements()
+    assert proverka,"Найдены не все элементы"
+
+    select = tenisraiting.selector()
+    assert select is not None, "Нет селектора или не выбран правльный"
+
+    tenisraiting.how_much()
+    assert tenisraiting.how_much(expected_count=61), "Не правильное кол-во игроков"
+
+
+
