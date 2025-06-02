@@ -1,129 +1,319 @@
-from itertools import count
+import time
 
 from selenium.webdriver.common.by import By
-from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import logging
+from selenium.common.exceptions import NoSuchElementException
 
 
 class TagComand:
 
     def __init__(self, browser):
         self.browser = browser
+        self.wait = WebDriverWait(self.browser, 10)
+        self.original_window = None
 
     def open(self):
         self.browser.get('https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/')
-        sleep(6)
 
-    def menu_nadlogo(self):
-        menu_nadlogo = self.browser.find_element(By.XPATH, "//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")
+    def menu(self):
+        try:
+            menu = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[@class='se-menu-subtop se-menu-subtop--breadcrumb']")))
+            logging.info("Меню найдено")
+            return menu
+        except TimeoutException:
+            return None
 
-    def info_comand(self,count):
-        info_comand = self.browser.find_elements(By.XPATH,"//div[@class='sp-param-list__item-value']")
-        assert len(info_comand) == count
+    def verify_all_elements(self):
+        elements = [
+            ("//div[@class='sp-param-list__cols']//div[1]//div[1]//div[1]", "Страна"),
+            ("//div[@class='sp-param-list__cols']//div[1]//div[2]//div[1]", "Арена"),
+            ("//div[@class='sp-param-list__cols']//div[1]//div[3]//div[1]", "Тренер"),
+            ("//div[contains(text(),'Восточная')]", "Конф"),
+            ("//div[contains(text(),'Дивизион Харламова')]","Дивизион"),
+            ("//div[normalize-space()='http://www.metallurg.ru/']", "сайт")
+        ]
 
-    def material(self):
-        material = self.browser.find_element(By.XPATH,"//div[@class='se-page-filters se-page-filters--size-sm se-tag-profile-materials-filter']")
+        all_present = True
+
+        for xpath, description in elements:
+            try:
+                self.browser.find_element(By.XPATH, xpath)
+                logging.info(f"{description} - найден")
+            except NoSuchElementException:
+                logging.error(f"{description} - не найден")
+                all_present = False
+
+        return all_present
+
+    def news(self, expected_count=30):
+        try:
+            news = self.wait.until(
+                EC.visibility_of_all_elements_located(
+                    (By.XPATH, "//div[@class='se-tag-profile-material-list__item']")))
+            actual_count = len(news)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} новостей (ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во новостей:{actual_count} (ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить новостей")
+            return False
+
+
+    def reviews(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[@class='se-button se-button--rounded se-tag-profile-materials-filter__bottom'][contains(text(),'Статьи')]")))
+            logging.info("Кнопка найдена")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/reviews/', "Не правильный урл статей"
+            return click
+        except TimeoutException:
+            return None
+
+    def reviews_len(self,expected_count=30):
+        try:
+            reviews = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='se-tag-profile-material-list__item']")))
+            actual_count = len(reviews)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} статей ожидалось {expected_count}")
+                return True
+            else:
+                logging.warning(f"Кол-во статей:{actual_count} ожидалось {expected_count}")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить статьи")
+            return False
+
+
+    def photo(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[@class='se-button se-button--rounded se-tag-profile-materials-filter__bottom'][contains(text(),'Фото')]")))
+            logging.info("Кнопка найдена")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/photoreports/', "Не правильный урл фото"
+            return click
+        except TimeoutException:
+            return None
+
+    def photo_len(self,expected_count=30):
+        try:
+            photo = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='se-tag-profile-material-list__item']")))
+            actual_count = len(photo)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} фото ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во фото:{actual_count} ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить статьи")
+            return False
+
+
+    def video(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[@class='se-button se-button--rounded se-tag-profile-materials-filter__bottom'][contains(text(),'Видео')]")))
+            logging.info("Кнопка найдена")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/videoreports/', "Не правильный урл видео"
+            return click
+        except TimeoutException:
+            return None
+
+    def video_len(self,expected_count=30):
+        try:
+            photo = self.wait.until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='se-tag-profile-material-list__item']")))
+            actual_count = len(photo)
+            if actual_count == expected_count:
+                logging.info(f"Найдено {actual_count} видео ожидалось {expected_count})")
+                return True
+            else:
+                logging.warning(f"Кол-во видео:{actual_count} ожидалось {expected_count})")
+                return False
+        except TimeoutException:
+            logging.error("Не удалось загрузить статьи")
+            return False
 
     def sostav(self):
-        sostav = self.browser.find_element(By.XPATH,"//a[contains(text(),'Состав')]")
-        sostav.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players/', "Не правильная ссылка состава"
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//a[contains(text(),'Состав')]")))
+            logging.info("Кнопка состава найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players/', "Не правильный урл состава"
 
-    def igroki(self,count):
-        igroki = self.browser.find_elements(By.XPATH,"//div[@class='sp-team-composition__group']")
-        assert len(igroki) == count
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//body[1]/div[1]/section[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[2]/td[4]/a[1]")))
+            logging.info("Игрок найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/14283/', "Не правильный урл игрока"
+            self.browser.back()
+            return click2
+        except TimeoutException:
+            return None
 
-    def click_igrok(self):
-        click_igrok = self.browser.find_element(By.XPATH,"//img[@title='Смолин Александр']")
-        click_igrok.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/16375/', "Не правильный урл тега"
-        self.browser.back()
-        sleep(4)
+    def rasposanie(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Расписание')]")))
+            logging.info("Кнопка расписание найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/schedule/', "Не правильный урл расписания"
 
-    def raspisanie(self):
-        raspisanie = self.browser.find_element(By.XPATH,"//a[contains(text(),'Расписание')]")
-        raspisanie.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/schedule/', "Не правлиьный урл расписания"
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//tbody/tr[4]/td[7]/a[1]")))
+            logging.info("матч найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/matchcenter/116907/protocol/', "Не правильный урл матча"
+            self.browser.back()
+            return click2
+        except TimeoutException:
+            return None
 
-    def raspisanie2(self):
-        raspisanie2 = self.browser.find_element(By.XPATH,"//div[@class='sp-page']")
+    def stat(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Статистика игроков')]")))
+            logging.info("Кнопка cтатистика найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/', "Не правильный урл статистики"
 
-    def srlollsmi(self):
-        scrlolsmi = self.browser.find_element(By.XPATH,"//td[normalize-space()='22.03.2025']")
-        scrlolsmi =  self.browser.execute_script("arguments[0].scrollIntoView();", scrlolsmi)
-        sleep(5)
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//img[@title='Михайлис Никита']")))
+            logging.info("Игрок найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/nikita-mihaylis-15180/', "Не правильный урл игрока"
+            self.browser.back()
+            return click2
+        except TimeoutException:
+            return None
 
-    def smi2(self):
-        smi2 = self.browser.find_element(By.XPATH,"//div[@class='sp-banner']")
 
-    def statistik_player(self):
-        statistik_player = self.browser.find_element(By.XPATH,"//a[contains(text(),'Статистика игроков')]")
-        statistik_player.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/', "Не правильный урл статистики"
+    def player_stat(self):
+        try:
+            click1 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[contains(text(),'Полевые игроки')]")))
+            logging.info("Кнопка полевые игроки найдена")
+            click1.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=outfields',"Не правильный урл полевые игроки"
 
-    def info_stat(self,count):
-        info_stat = self.browser.find_elements(By.XPATH,"//td[@class='se-advanced-table-cell']")
-        assert len(info_stat) == count
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//img[@title='Канцеров Роман']")))
+            logging.info("Полевой игрок найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/15809/', "Не правильный урл игрока пол"
+            self.browser.back()
 
-    def polevie(self):
-        polevie = self.browser.find_element(By.XPATH,"//div[contains(text(),'Полевые игроки')]")
-        polevie.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=outfields', "Не правильные полевые"
+            click3 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//div[contains(text(),'Вратари')]")))
+            logging.info("Вратари найдены")
+            click3.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=goalkeeper', "Не правильный урл вратарей"
 
-    def vratari(self):
-        vratari = self.browser.find_element(By.XPATH,"//div[contains(text(),'Вратари')]")
-        vratari.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=goalkeeper',"Не правильные вратари"
+            click4 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH,"//img[@title='Смолин Александр']")))
+            logging.info("Игрок вратарь найден")
+            click4.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/16375/', "Не правильный урл вратаря"
+            self.browser.back()
 
-    def zash(self):
-        zash = self.browser.find_element(By.XPATH,"//div[contains(text(),'Защитники')]")
-        zash.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=defense', "Не правльные защитники"
+            click5 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[contains(text(),'Защитники')]")))
+            logging.info("Кнопка защитники найдена")
+            click5.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=defense', "Не правильный защитников"
 
-    def napad(self):
-        napad = self.browser.find_element(By.XPATH,"//div[contains(text(),'Нападающие')]")
-        napad.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=forward', "Не правлиьные нападающие"
+            click6 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//img[@title='Пресс Робин']")))
+            logging.info(" защитники найдена")
+            click6.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/player/14673/', "Не правильный защитника урл"
+            self.browser.back()
+
+            click7 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//div[contains(text(),'Нападающие')]")))
+            logging.info("Кнопка нападающие найдена")
+            click7.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/players-stats/?stage=undefined&role=forward', "Не правильный урл нападающих"
+
+            click6 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//img[@title='Силантьев Дмитрий']")))
+            logging.info(" защитники найдена")
+            click6.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/dmitriy-silantev-30291/', "Не правильный нападающего урл"
+            self.browser.back()
+            return click6
+        except TimeoutException:
+            return None
 
     def stat_comand(self):
-        stat_comand = self.browser.find_element(By.XPATH,"//a[contains(text(),'Статистика команды')]")
-        stat_comand.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/stats/', "Не правильная статистика команды"
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Статистика команды')]")))
+            logging.info("Кнопка cтатистика_команды найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/stats/', "Не правильный урл статистики_команды"
 
-    def stat_info(self):
-        stat_info = self.browser.find_element(By.XPATH,"//div[@class='sp-page sp-page--overflow']")
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//tbody/tr[1]/td[2]/div[1]/div[1]")))
+            click2.click()
+            logging.info("Турнир раскрыт")
+            time.sleep(1)
 
-    def click(self):
-        click = self.browser.find_element(By.XPATH,"//body[1]/div[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[2]/td[2]")
-        click.click()
+            click3 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//tbody/tr[1]/td[2]/div[1]/a[2]")))
+            logging.info("Команда найдена")
+            click3.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/lokomotiv-yar-33/', "Не правильный урл команды"
+            self.browser.back()
+            return click3
+        except TimeoutException:
+            return None
 
-    def treneri(self):
-        treneri = self.browser.find_element(By.XPATH,"//div[@class='se-page-menu-item']//a[contains(text(),'Тренеры')]")
-        treneri.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/trainers/', "Не правильные теренры"
+    def treners(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Тренеры')]")))
+            logging.info("Кнопка тренеры найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/trainers/', "Не правильный урл тренеров"
 
-    def starica(self):
-        stranica = self.browser.find_element(By.XPATH,"//div[@class='sp-page sp-page--overflow']")
-
-    def raspisan(self):
-        raspisan = self.browser.find_element(By.XPATH,"//div[@class='se-titled-block__title se-titled-block__title--fs-md']")
-
-    def soper(self):
-        soper = self.browser.find_element(By.XPATH,"//a[contains(text(),'Соперники')]")
-        soper.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/competitor/', "Не правильные теренры"
-
-    def vragi(self):
-        vragi = self.browser.find_element(By.XPATH,"//div[@class='sp-page sp-page--overflow']")
-
-    def istoria_vstr(self,count):
-        isoria_vstr = self.browser.find_elements(By.XPATH,"(//a[contains(text(),'История встреч')])")
-        assert len(isoria_vstr) == count
-
-    def istoria_vstr2(self):
-        isoria_vstr2 = self.browser.find_element(By.XPATH,"(//a[contains(text(),'История встреч')])[8]")
-        isoria_vstr2.click()
-        assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/competitor/12/', "не правильная история встреч"
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//img[@title='Кинэн Майк']")))
+            logging.info("Игрок найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/hockey/L/trainer/58/', "Не правильный урл тренера"
+            self.browser.back()
+            return click2
+        except TimeoutException:
+            return None
 
 
+    def apponents(self):
+        try:
+            click = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Соперники')]")))
+            logging.info("Кнопка соперники найдена и видна")
+            click.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/metallurg-mg-hokkey-270/competitor/', "Не правильный урл соперников"
+
+            click2 = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//a[contains(text(),'Адмирал')]")))
+            logging.info("Игрок найден")
+            click2.click()
+            assert self.browser.current_url == 'https://www.sport-express.ru/tag/admiral-11093/?page=', "Не правильный урл тега соперника"
+            return click2
+        except TimeoutException:
+            return None
